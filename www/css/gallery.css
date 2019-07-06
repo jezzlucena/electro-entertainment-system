@@ -1,0 +1,277 @@
+.gallery {
+  transition: 0.5s opacity ease;
+}
+  .gallery.hide {
+    opacity: 0;
+  }
+  .gallery.grid {
+    column-count: 3;
+  }
+    @media(max-width: 1000px) {
+      .gallery.grid {
+        column-count: 2;
+      }
+    }
+    @media(max-width: 600px) {
+      .gallery.grid {
+        column-count: 1;
+      }
+    }
+
+  .gallery .item {
+    position: relative;
+    display: flex;
+    border: 1px solid black;
+    padding: 20px;
+    break-inside: avoid-column;
+    margin-bottom: 20px;
+    opacity: 0;
+    transition: 0.5s opacity ease;
+  }
+    .gallery .item.triggered {
+      opacity: 1;
+      transition-delay: 0.5s;
+    }
+
+    .gallery .item.template {
+      display: none;
+    }
+    .gallery.grid .item {
+      flex-direction: column;
+      width: 245px;
+      margin: 0 auto 20px;
+      cursor: pointer;
+    }
+
+    @media(max-width: 600px) {
+      .gallery:not(.grid) .item {
+        padding: 10px;
+      }
+    }
+
+    .gallery .thumbContainer {
+      flex: none;
+      position: relative;
+      width: 246px;
+      height: 138px;
+      margin-right: 16px;
+      overflow: hidden;
+    }
+      .gallery.grid .thumbContainer {
+        margin-right: 0;
+        margin-bottom: 10px;
+      }
+
+      @media(max-width: 600px) {
+        .gallery:not(.grid) .thumbContainer {
+          width: 136px;
+          height: 195px;
+          margin-right: 10px;
+        }
+      }
+
+      .gallery .thumbContainer .thumb,
+      .gallery .thumbContainer .thumbVideo {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        object-position: top;
+        opacity: 0;
+        transition: 0.5s opacity ease;
+      }
+
+        .gallery .item.triggered .thumbContainer .thumb {
+          opacity: 1;
+          transition-delay: 1s;
+        }
+
+        .gallery .item.triggered .thumbContainer .thumbVideo {
+          opacity: 1;
+          transition-delay: 1.5s;
+        }
+
+          .gallery .item.triggered:not(.noVideo):hover .thumbContainer .thumb,
+          .gallery .item.triggered:not(.noVideo).touched .thumbContainer .thumb {
+            opacity: 0;
+            transition-delay: 0s;
+          }
+
+    .gallery .detailsContainer {
+      position: relative;
+      flex-grow: 1;
+      margin-right: 16px;
+      letter-spacing: 0;
+    }
+
+      .gallery .moreBtn {
+        position: absolute;
+        top: 0px;
+        right: -20px;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        opacity: 0;
+        cursor: pointer;
+        outline: none;
+        transform-origin: top right;
+        transform: scale(0.7);
+      }
+        .gallery .moreBtn::before {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 100%;
+          height: 100%;
+          content: '';
+          border-radius: 50%;
+          background-color: #ccc;
+          transform: translate(-50%, -50%) scale(0);
+          transition: 0s transform ease, 0s opacity ease;
+        }
+        .content .section .item:hover .moreBtn {
+          opacity: 0.5;
+        }
+        .content .section .item:hover .moreBtn:hover,
+        .content .section .item.touched .moreBtn {
+          opacity: 0.9;
+        }
+        .gallery .moreBtn:focus:active::before {
+          transform: translate(-50%, -50%) scale(0);
+          opacity: 1;
+          transition-duration: 0s, 0s;
+        }
+        .gallery .moreBtn:focus::before {
+          transform: translate(-50%, -50%) scale(1);
+          opacity: 0;
+          transition-duration: 0.5s, 1s;
+        }
+        .gallery .moreBtn::after {
+          content: '';
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          width: 2px;
+          height: 2px;
+          margin-left: -1px;
+          margin-top: -1px;
+          background-color: black;
+          border-radius: 50%;
+          box-shadow: 0 0 0 2px black, 0 11px 0 2px black, 0 -11px 0 2px black;
+        }
+
+        @media(max-width: 800px) {
+          .gallery .moreBtn {
+            opacity: 0.7;
+            background-color: transparent;
+            transform: scale(0.6);
+          }
+
+          .gallery.grid .moreBtn {
+            margin-right: -5px;
+          }
+        }
+
+        .gallery .moreDropdown {
+          position: absolute;
+          top: 10px;
+          right: 0;
+          opacity: 0;
+          background-color: white;
+          border: 1px solid black;
+          pointer-events: none;
+          transition: 0.5s opacity ease;
+          z-index: 100;
+        }
+          .gallery .moreDropdown.open {
+            pointer-events: auto;
+            opacity: 1;
+          }
+
+          .gallery .moreDropdown .moreLink {
+            padding: 10px 20px;
+            margin: 0;
+          }
+            .gallery .moreDropdown .moreLink:not(:last-child) {
+              padding-bottom: 5px;
+            }
+
+            .gallery .moreDropdown .moreLink.disabled {
+              color: #ddd;
+            }
+
+        .gallery .detailsContainer .name {
+          font-size: 18px;
+          padding-right: 30px;
+          letter-spacing: 0;
+          margin-bottom: 10px;
+        }
+          .gallery.grid .detailsContainer .name {
+            font-size: 14px;
+            line-height: 14px;
+            font-weight: bold;
+            margin-bottom: 6px;
+            padding-right: 0;
+          }
+
+        @media(max-width: 600px) {
+          .gallery .detailsContainer .name {
+            font-size: 14px;
+            line-height: 16px;
+            font-weight: bold;
+            padding-right: 0;
+          }
+        }
+
+        .gallery .detailsContainer .subtitle {
+          font-size: 13px;
+          line-height: 18px;
+          margin-bottom: 10px;
+          margin-left: 0;
+          padding-right: 30px;
+          opacity: 0.7;
+        }
+          .gallery.grid .detailsContainer .subtitle {
+            font-size: 12px;
+            line-height: 15px;
+            margin-bottom: 8px;
+            padding-right: 0;
+          }
+            .gallery.grid .detailsContainer .subtitle span {
+              white-space: nowrap;
+            }
+            .gallery.grid .detailsContainer .subtitle .role {
+              display: block;
+            }
+            .gallery.grid .detailsContainer .subtitle .company::after {
+              content: ' \2022 ';
+            }
+
+        .gallery .detailsContainer .description {
+          font-size: 12px;
+          opacity: 1;
+          margin-bottom: 10px;
+        }
+
+.loadingGradient {
+  animation-duration: 1.8s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeHolderShimmer;
+  animation-timing-function: linear;
+  background: #f6f7f8;
+  background: linear-gradient(to right, #f4f4f4 8%, #ddd 38%, #f4f4f4 54%);
+  background-size: 1000px 640px;
+  position: relative;
+}
+
+@keyframes placeHolderShimmer{
+  0%{
+    background-position: -468px 0
+  }
+  100%{
+    background-position: 468px 0
+  }
+}
