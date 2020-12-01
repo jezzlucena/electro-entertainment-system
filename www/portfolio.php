@@ -13,11 +13,6 @@
 		<meta property="og:description" content="A collection of screencaps, videos, and live demos of UI/UX projects programmed by Jezz Lucena."/>
 
 		<?php include 'head_imports.php'; ?>
-		<script>
-			var projects = <?php include 'api/fetch_projects.php' ?>;
-		</script>
-
-		<script type="text/javascript" charset="UTF-8" src="js/gallery.js"></script>
 	</head>
 	<body data-page="portfolio">
 		<div class="header">
